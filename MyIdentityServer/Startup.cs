@@ -13,7 +13,8 @@ namespace MyIdentityServer
                 .AddDeveloperSigningCredential()
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
-                .AddTestUsers(Config.GetUsers());
+                //.AddTestUsers(Config.GetUsers());
+                .AddResourceOwnerValidator<ResourceOwnerValidator>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

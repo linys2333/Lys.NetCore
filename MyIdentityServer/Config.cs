@@ -8,7 +8,7 @@ namespace MyIdentityServer
     {
         public static IEnumerable<ApiResource> GetApiResources() => new List<ApiResource>
         {
-            new ApiResource("api1", "MyWebAPI")
+            new ApiResource("api1")
         };
 
         public static IEnumerable<Client> GetClients() => new List<Client>

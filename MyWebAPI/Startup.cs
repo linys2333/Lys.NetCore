@@ -58,11 +58,10 @@ namespace MyWebAPI
 
             app.UseAuthentication();
 
-            app.UseSwagger()
-                .UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyWebAPI V1");
-                });
+            app.UseSwagger().UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyWebAPI V1");
+            });
 
             app.UseMvc();
             app.Run(async (context) =>
