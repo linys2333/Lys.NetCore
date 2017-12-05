@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyWebAPI.Common;
-using MyWebAPI.Models;
+using MyService.Common;
+using MyService.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyWebAPI.Managers
+namespace MyService.Managers
 {
     public class CommunicationManager : BazaService
     {

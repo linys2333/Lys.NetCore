@@ -1,4 +1,4 @@
-﻿namespace MyWebAPI.Common
+﻿namespace MyService.Common
 {
     public class InvokedResult
     {

@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MyWebAPI.Managers;
-using MyWebAPI.Stores.Entity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MyService.Managers;
+using MyService.Stores.Entity;
 using System.Threading.Tasks;
 
 namespace MyWebAPI.Controllers

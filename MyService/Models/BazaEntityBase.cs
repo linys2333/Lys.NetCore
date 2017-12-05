@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyWebAPI.Models
+namespace MyService.Models
 {
     public interface IEntity
     {

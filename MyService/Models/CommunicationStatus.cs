@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyWebAPI.Models
+namespace MyService.Models
 {
     public enum CommunicationStatus : short
     {

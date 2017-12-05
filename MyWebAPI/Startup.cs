@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-using MyWebAPI.Stores.Entity;
+using MyService.Stores.Entity;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 
@@ -50,11 +50,19 @@ namespace MyWebAPI
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
-                loggerFactory.AddConsole(LogLevel.Debug);
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                //app.UseBrowserLink();
             }
+
+            app.UseStaticFiles();
+
+            app.UseCors("default");
 
             app.UseAuthentication();
 
@@ -64,7 +72,8 @@ namespace MyWebAPI
             });
 
             app.UseMvc();
-            app.Run(async (context) =>
+
+            app.Run(async context =>
             {
                 await context.Response.WriteAsync("MyWebAPI启动");
             });

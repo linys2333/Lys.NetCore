@@ -26,7 +26,7 @@ namespace MyIdentityServer
 
             app.UseIdentityServer();
             
-            app.Run(async (context) =>
+            app.Run(async context =>
             {
                 await context.Response.WriteAsync("MyIdentityServer启动");
             });

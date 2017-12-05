@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyWebAPI.Stores.Entity;
+﻿using MyService.Stores.Entity;
 
-namespace MyWebAPI.Managers
+namespace MyService.Managers
 {
     public class BazaService
     {

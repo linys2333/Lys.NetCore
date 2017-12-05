@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MyService.Managers;
+using MyService.Stores.Entity;
 using MyWebAPI.Common;
-using MyWebAPI.Managers;
-using MyWebAPI.Stores.Entity;
-using System.Reflection;
 
 namespace MyWebAPI.Controllers
 {
+    [Authorize]
     public class BazaController : Controller
     {
         private readonly BazaDbContext m_dbContext;

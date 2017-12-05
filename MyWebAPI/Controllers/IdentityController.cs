@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MyWebAPI.Stores.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyService.Stores.Entity;
 using System.Linq;
 
 namespace MyWebAPI.Controllers
 {
-    [Authorize]
     [Produces("application/json")]
     [Route("api/Identity")]
     public class IdentityController : BazaController

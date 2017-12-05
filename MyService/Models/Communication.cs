@@ -1,8 +1,8 @@
-﻿using MyWebAPI.Common;
+﻿using MyService.Common;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace MyWebAPI.Models
+namespace MyService.Models
 {
     public class Communication : BazaEntityBase
     {
