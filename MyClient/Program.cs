@@ -1,7 +1,6 @@
 ﻿using IdentityModel.Client;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -35,7 +34,7 @@ namespace MyClient
             var client = new HttpClient();
             client.SetBearerToken(tokenResponse.AccessToken);
             
-            var response = await client.PostAsync("http://localhost:5001/api/Communication/Create", GetFileContent());
+            var response = await client.PostAsync("http://localhost:5001/api/CallRecord", GetFileContent());
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);

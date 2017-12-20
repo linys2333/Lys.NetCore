@@ -1,1 +1,0 @@
-@dotnet publish -f netcoreapp2.0 --runtime ubuntu.16.04-x64
