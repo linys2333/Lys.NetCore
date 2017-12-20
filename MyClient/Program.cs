@@ -1,7 +1,10 @@
 ﻿using IdentityModel.Client;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace MyClient
@@ -31,8 +34,8 @@ namespace MyClient
             // 调用api
             var client = new HttpClient();
             client.SetBearerToken(tokenResponse.AccessToken);
-
-            var response = await client.GetAsync("http://localhost:5001/api/identity");
+            
+            var response = await client.PostAsync("http://localhost:5001/api/Communication/Create", GetFileContent());
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);
@@ -40,10 +43,30 @@ namespace MyClient
             else
             {
                 var content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(JArray.Parse(content));
+                Console.WriteLine(JObject.Parse(content));
             }
 
             Console.WriteLine();
+        }
+
+        private static HttpContent GetFileContent()
+        {
+            var content = new MultipartFormDataContent();
+
+            var fileName = "1.amr";
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+
+            var fileContent = new ByteArrayContent(File.ReadAllBytes(filePath));
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                FileName = fileName,
+                Name = "file"
+            };
+
+            content.Add(fileContent);
+
+            return content;
         }
     }
 }

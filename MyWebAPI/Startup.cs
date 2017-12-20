@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-using MyService.Stores.Entity;
+using MyService.Data;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 
@@ -24,8 +24,8 @@ namespace MyWebAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BazaDbContext>(opt => opt.UseInMemoryDatabase("Test"));
-            //services.AddDbContext<BazaDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<MyDbContext>(opt => opt.UseInMemoryDatabase("Test"));
+            //services.AddDbContext<MyDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddMvc();
 
@@ -60,16 +60,16 @@ namespace MyWebAPI
                 //app.UseBrowserLink();
             }
 
+            app.UseSwagger().UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyWebAPI V1");
+            });
+
             app.UseStaticFiles();
 
             app.UseCors("default");
 
             app.UseAuthentication();
-
-            app.UseSwagger().UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyWebAPI V1");
-            });
 
             app.UseMvc();
 

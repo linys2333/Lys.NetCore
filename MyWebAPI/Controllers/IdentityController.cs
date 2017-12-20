@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyService.Stores.Entity;
+using MyService.Data;
 using System.Linq;
 
 namespace MyWebAPI.Controllers
 {
     [Produces("application/json")]
     [Route("api/Identity")]
-    public class IdentityController : BazaController
+    public class IdentityController : BaseController
     {
-        public IdentityController(BazaDbContext dbContext) : base(dbContext)
+        public IdentityController(MyDbContext dbContext) : base(dbContext)
         {
         }
 

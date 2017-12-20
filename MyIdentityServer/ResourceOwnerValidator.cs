@@ -1,6 +1,6 @@
 ﻿using IdentityModel;
 using IdentityServer4.Validation;
-using MyIdentityServer.Managers;
+using MyIdentityServer.Services;
 using System.Threading.Tasks;
 
 namespace MyIdentityServer
