@@ -8,5 +8,10 @@ namespace Common
         {
             public static readonly string FFmpegFolder = Path.Combine(Directory.GetCurrentDirectory(), "FFmpeg");
         }
+
+        public static class Errors
+        {
+            public const string CallFileError = nameof(CallFileError);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using Common.Configuration;
 using Common.Interfaces;
 using LysCore.Common;
+using LysCore.Common.Extensions;
 using LysCore.Domain;
 using LysCore.Exceptions;
 using LysCore.FileService;
@@ -62,14 +63,16 @@ namespace Domain.CallRecord
 
                 m_FFmpeg.Convert(amrName, mp3Name);
 
-                if (File.Exists(mp3Path))
+                if (!File.Exists(mp3Path))
                 {
-                    var mp3Bytes = await File.ReadAllBytesAsync(mp3Path);
-                    if (mp3Bytes != null && mp3Bytes.Any())
-                    {
-                        var fileId = await SaveToOSSAsync(callRecord.OwnerId, mp3Bytes);
-                        return fileId;
-                    }
+                    throw new BusinessException(MyConstants.Errors.CallFileError, "录音转码失败");
+                }
+
+                var mp3Bytes = await File.ReadAllBytesAsync(mp3Path);
+                if (mp3Bytes != null && mp3Bytes.Any())
+                {
+                    var fileId = await SaveToOSSAsync(callRecord.OwnerId, mp3Bytes);
+                    return fileId;
                 }
             }
 
@@ -102,12 +105,24 @@ namespace Domain.CallRecord
             
             var client = new HttpClient();
             var content = new StringContent(JsonConvert.SerializeObject(file), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync($"{m_FileServiceConfig.BaseUrl}file/save", content);
 
-            if (!response.IsSuccessStatusCode)
+            var errMsg = string.Empty;
+            try
             {
-                var errMsg = await response.Content.ReadAsStringAsync();
-                throw new BusinessException(errMsg);
+                var response = await client.PostAsync($"{m_FileServiceConfig.BaseUrl}file/save", content);
+                if (!response.IsSuccessStatusCode)
+                {
+                    errMsg = await response.Content.ReadAsStringAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                errMsg = ex.GetMessage();
+            }
+
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                throw new BusinessException(MyConstants.Errors.CallFileError, errMsg);
             }
 
             return fileId;
