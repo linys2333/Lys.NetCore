@@ -1,8 +1,8 @@
 ﻿using System.IO;
 
-namespace Common
+namespace LysCore.Common.Extensions
 {
-    public static class IOExtensions
+    public static class IOExt
     {
         public static byte[] StreamToBytes(Stream stream)
         {

@@ -11,7 +11,9 @@
 
         public static class Errors
         {
-            public static readonly string EntityNotFound = "找不到指定的数据";
+            public const string InternalServerError = nameof(InternalServerError);
+            public const string BadRequest = nameof(BadRequest);
+            public const string EntityNotFound = "找不到指定的数据";
         }
     }
 }

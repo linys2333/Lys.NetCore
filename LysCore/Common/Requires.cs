@@ -16,7 +16,7 @@ namespace LysCore.Common
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException(parameterName);
+                throw new ArgumentNullException(parameterName);
             }
         }
 

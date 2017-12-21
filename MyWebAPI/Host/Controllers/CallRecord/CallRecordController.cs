@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Common;
+using LysCore.Common.Extensions;
 using LysCore.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +36,7 @@ namespace Host.Controllers.CallRecord
             var callRecord = Mapper.Map<CallRecordDomain.CallRecord>(callRecordDto);
             callRecord.OwnerId = userId;
 
-            var fileBytes = IOExtensions.StreamToBytes(file?.OpenReadStream());
+            var fileBytes = IOExt.StreamToBytes(file?.OpenReadStream());
             var fileId = await callRecordManager.SaveFileAsync(callRecord, fileBytes);
             
             callRecord.FileId = fileId;
