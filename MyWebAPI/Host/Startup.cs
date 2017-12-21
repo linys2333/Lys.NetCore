@@ -1,5 +1,5 @@
 ﻿using IdentityServer4.AccessTokenValidation;
-using LysCore.Common.Web;
+using LysCore.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;

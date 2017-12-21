@@ -1,6 +1,7 @@
 ﻿using Domain.CallRecord;
 using Domain.User;
 using LysCore.Controllers;
+using LysCore.Web;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Host.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ParameterNotNullOrEmpty("userId")]
         public async Task<object> GetInfo([FromHeader]Guid userId)
         {
             var user = await GetService<UserManager>().GetAsync(userId);

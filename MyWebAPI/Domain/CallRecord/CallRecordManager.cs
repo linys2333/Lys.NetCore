@@ -65,13 +65,13 @@ namespace Domain.CallRecord
 
                 if (!File.Exists(mp3Path))
                 {
-                    throw new BusinessException(MyConstants.Errors.CallFileError, "录音转码失败");
+                    throw new BusinessException("录音转码失败", MyConstants.Errors.CallFileError);
                 }
 
                 var mp3Bytes = await File.ReadAllBytesAsync(mp3Path);
                 if (mp3Bytes != null && mp3Bytes.Any())
                 {
-                    var fileId = await SaveToOSSAsync(callRecord.OwnerId, mp3Bytes);
+                    var fileId = await SaveToOSSAsync(callRecord.OwnerId, mp3Bytes, "mp3");
                     return fileId;
                 }
             }
@@ -82,7 +82,7 @@ namespace Domain.CallRecord
         /// <summary>
         /// 上传至阿里云
         /// </summary>
-        private async Task<Guid> SaveToOSSAsync(Guid ownerId, byte[] fileBytes)
+        private async Task<Guid> SaveToOSSAsync(Guid ownerId, byte[] fileBytes, string fileExt = null)
         {
             Requires.NotNullGuid(ownerId, nameof(ownerId));
             Requires.NotNull(fileBytes, nameof(fileBytes));
@@ -95,8 +95,8 @@ namespace Domain.CallRecord
                 Key = fileId.ToString(),
                 Data = fileBytes,
                 OwnerId = ownerId.ToString(),
-                FileName = fileId.ToString(),
-                CodePage = 936,
+                FileName = string.IsNullOrEmpty(fileExt) ? fileId.ToString() : $"{fileId}.{fileExt}",
+                CodePage = 936,  // gb2312
                 Created = DateTime.Now,
                 Updated = DateTime.Now,
                 FileStatus = FileStatus.Normal,
@@ -122,7 +122,7 @@ namespace Domain.CallRecord
 
             if (!string.IsNullOrEmpty(errMsg))
             {
-                throw new BusinessException(MyConstants.Errors.CallFileError, errMsg);
+                throw new BusinessException(errMsg, MyConstants.Errors.CallFileError);
             }
 
             return fileId;

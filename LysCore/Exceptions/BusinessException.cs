@@ -6,18 +6,18 @@ namespace LysCore.Exceptions
     {
         public string ErrorCode { get; }
 
-        public BusinessException(string msg) : base(msg) { }
-
-        public BusinessException(string errorCode, string msg) : base(msg)
+        public BusinessException(string msg, string errorCode = null)
+            : base(msg)
         {
-            ErrorCode = errorCode;
+            ErrorCode = errorCode ?? nameof(BusinessException);
         }
     }
 
     public class ValidateException : BusinessException
     {
-        public ValidateException(string msg) : base(msg) { }
-
-        public ValidateException(string errorCode, string msg) : base(errorCode, msg) { }
+        public ValidateException(string msg, string errorCode = null)
+            : base(msg, errorCode ?? nameof(ValidateException))
+        {
+        }
     }
 }

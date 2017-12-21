@@ -1,4 +1,4 @@
-﻿namespace LysCore.Common.Web
+﻿namespace LysCore.Web
 {
     public class ResponseError
     {

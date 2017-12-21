@@ -1,4 +1,6 @@
-﻿namespace LysCore.Common.Web
+﻿using LysCore.Common;
+
+namespace LysCore.Web
 {
     public class AjaxResponse
     {

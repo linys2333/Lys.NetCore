@@ -6,8 +6,9 @@ using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Net;
+using LysCore.Common;
 
-namespace LysCore.Common.Web
+namespace LysCore.Web
 {
     public class ExceptionFilter : IExceptionFilter
     {
@@ -22,11 +23,7 @@ namespace LysCore.Common.Web
             }
             else if (exception is BusinessException)
             {
-                var businessException = (BusinessException)exception;
-                if (!string.IsNullOrEmpty(businessException.ErrorCode))
-                {
-                    response.Error.Code = businessException.ErrorCode;
-                }
+                response.Error.Code = (exception as BusinessException).ErrorCode;
             }
 
             context.Result = new JsonResult(response)

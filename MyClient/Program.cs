@@ -33,8 +33,9 @@ namespace MyClient
             // 调用api
             var client = new HttpClient();
             client.SetBearerToken(tokenResponse.AccessToken);
-            
-            var response = await client.PostAsync("http://localhost:5001/api/CallRecord", GetFileContent());
+            client.DefaultRequestHeaders.Add("userId", Guid.Empty.ToString());
+
+            var response = await client.PostAsync("http://localhost:5001/api/CallRecord", GetContent());
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);
@@ -48,7 +49,7 @@ namespace MyClient
             Console.WriteLine();
         }
 
-        private static HttpContent GetFileContent()
+        private static HttpContent GetContent()
         {
             var content = new MultipartFormDataContent();
 
@@ -63,7 +64,21 @@ namespace MyClient
                 Name = "file"
             };
 
+            var mobileContent = new StringContent("18688888888");
+            mobileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                Name = "Mobile"
+            };
+
+            var durationContent = new StringContent("10");
+            durationContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            {
+                Name = "Duration"
+            };
+
             content.Add(fileContent);
+            content.Add(mobileContent);
+            content.Add(durationContent);
 
             return content;
         }

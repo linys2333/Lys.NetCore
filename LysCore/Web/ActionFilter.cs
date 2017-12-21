@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net;
 
-namespace LysCore.Common.Web
+namespace LysCore.Web
 {
     public class ActionFilter : IActionFilter
     {

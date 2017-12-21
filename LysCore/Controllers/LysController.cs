@@ -1,4 +1,4 @@
-﻿using LysCore.Common.Web;
+﻿using LysCore.Web;
 using LysCore.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
