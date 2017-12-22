@@ -19,6 +19,7 @@ namespace LysCore.Controllers
     }
 
     [Authorize]
+    [ParameterNotNullOrEmpty("userId")]
     public class LysAuthController : LysController
     {
     }
