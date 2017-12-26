@@ -2,6 +2,7 @@
 using LysCore.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +43,7 @@ namespace Host
 
             services.AddMvc(options =>
             {
-                //options.Filters.Add(new RequireHttpsAttribute());
+                options.Filters.Add(new RequireHttpsAttribute());
                 options.Filters.Add(new ExceptionFilter());
                 options.Filters.Add(new ActionFilter());
             }).AddJsonOptions(options => 
@@ -58,7 +59,7 @@ namespace Host
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //UseHttps(app);
+            UseHttps(app);
             UseSwagger(app);
             app.UseStaticFiles();
             app.UseAuthentication();

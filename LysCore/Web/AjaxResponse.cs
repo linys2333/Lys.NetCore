@@ -4,18 +4,18 @@ namespace LysCore.Web
 {
     public class AjaxResponse
     {
-        public bool Succeeded { get; set; }
+        public bool IsSuccess { get; set; }
 
         public ResponseError Error { get; set; }
 
-        public AjaxResponse(bool succeeded)
+        public AjaxResponse(bool isSuccess)
         {
-            Succeeded = succeeded;
+            IsSuccess = isSuccess;
         }
 
-        public AjaxResponse(bool succeeded, string errorMessage)
+        public AjaxResponse(bool isSuccess, string errorMessage)
         {
-            Succeeded = succeeded;
+            IsSuccess = isSuccess;
             Error = new ResponseError
             {
                 Code = LysConstants.Errors.InternalServerError,
@@ -23,9 +23,9 @@ namespace LysCore.Web
             };
         }
 
-        public AjaxResponse(bool succeeded, ResponseError error)
+        public AjaxResponse(bool isSuccess, ResponseError error)
         {
-            Succeeded = succeeded;
+            IsSuccess = isSuccess;
             Error = error ?? new ResponseError
             {
                 Code = LysConstants.Errors.InternalServerError,
@@ -45,7 +45,7 @@ namespace LysCore.Web
     {
         public T Data { get; set; }
 
-        public AjaxResponse(bool succeeded, T data) : base(succeeded)
+        public AjaxResponse(bool isSuccess, T data) : base(isSuccess)
         {
             Data = data;
         }
