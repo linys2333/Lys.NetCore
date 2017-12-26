@@ -3,9 +3,9 @@ using Common.Configuration;
 using Common.Interfaces;
 using LysCore.Common;
 using LysCore.Common.Extensions;
-using LysCore.Domain;
 using LysCore.Exceptions;
 using LysCore.FileService;
+using LysCore.Service;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -20,14 +20,12 @@ namespace Domain.CallRecord
     public class CallRecordManager : LysDomain
     {
         private readonly FileServiceConfig m_FileServiceConfig;
-        private readonly IFFmpeg m_FFmpeg;
-        private readonly ICallRecordRepository m_CallRecordRepository;
+        private readonly LazyService<IFFmpeg> m_FFmpeg = new LazyService<IFFmpeg>();
+        private readonly LazyService<ICallRecordRepository> m_CallRecordRepository = new LazyService<ICallRecordRepository>();
 
-        public CallRecordManager(IOptions<FileServiceConfig> fileServiceConfig, IFFmpeg ffmpeg, ICallRecordRepository callRecordRepository)
+        public CallRecordManager(IOptions<FileServiceConfig> fileServiceConfig)
         {
             m_FileServiceConfig = fileServiceConfig.Value;
-            m_FFmpeg = ffmpeg;
-            m_CallRecordRepository = callRecordRepository;
         }
 
         public async Task CreateAsync(CallRecord callRecord)
@@ -37,13 +35,13 @@ namespace Domain.CallRecord
             callRecord.CreatorId = callRecord.OwnerId;
             callRecord.UpdaterId = callRecord.OwnerId;
 
-            await m_CallRecordRepository.CreateAsync(callRecord);
+            await m_CallRecordRepository.Instance.CreateAsync(callRecord);
         }
 
         public async Task<int> CountMyTodayCallsAsync(Guid userId)
         {
             Requires.NotNullGuid(userId, nameof(userId));
-            var count = await m_CallRecordRepository.CountMyTodayCallsAsync(userId);
+            var count = await m_CallRecordRepository.Instance.CountMyTodayCallsAsync(userId);
             return count;
         }
 
@@ -61,7 +59,7 @@ namespace Domain.CallRecord
 
                 await File.WriteAllBytesAsync(amrPath, amrBytes);
 
-                m_FFmpeg.Convert(amrName, mp3Name);
+                m_FFmpeg.Instance.Convert(amrName, mp3Name);
 
                 if (!File.Exists(mp3Path))
                 {

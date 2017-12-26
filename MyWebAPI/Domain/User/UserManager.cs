@@ -1,6 +1,6 @@
 ﻿using LysCore.Common;
-using LysCore.Domain;
 using LysCore.Exceptions;
+using LysCore.Service;
 using System;
 using System.Threading.Tasks;
 using System.Web.Helpers;
@@ -9,17 +9,12 @@ namespace Domain.User
 {
     public class UserManager : LysDomain
     {
-        private readonly IUserRepository m_UserRepository;
-
-        public UserManager(IUserRepository userRepository)
-        {
-            m_UserRepository = userRepository;
-        }
-
+        private readonly LazyService<IUserRepository> m_UserRepository = new LazyService<IUserRepository>();
+        
         public async Task<User> GetAsync(Guid userId)
         {
             Requires.NotNullGuid(userId, nameof(userId));
-            var user = await m_UserRepository.GetAsync(userId);
+            var user = await m_UserRepository.Instance.GetAsync(userId);
             return user;
         }
 
@@ -28,7 +23,7 @@ namespace Domain.User
             Requires.NotNullOrEmpty(userName, nameof(userName));
             Requires.NotNullOrEmpty(password, nameof(password));
             
-            var user = await m_UserRepository.FindByNameAsync(userName);
+            var user = await m_UserRepository.Instance.FindByNameAsync(userName);
             var result = CheckSignInAsync(user, password);
 
             if (!result)

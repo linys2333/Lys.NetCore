@@ -1,5 +1,5 @@
-﻿using LysCore.Web;
-using LysCore.Domain;
+﻿using LysCore.Service;
+using LysCore.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,11 +11,6 @@ namespace LysCore.Controllers
     [Route("[controller]")]
     public class LysController : ControllerBase
     {
-        protected virtual T GetService<T>() where T : LysDomain
-        {
-            var service = ActivatorUtilities.GetServiceOrCreateInstance<T>(HttpContext.RequestServices);
-            return service;
-        }
     }
 
     [Authorize]

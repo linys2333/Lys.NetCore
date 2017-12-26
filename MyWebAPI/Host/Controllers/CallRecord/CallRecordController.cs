@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using LysCore.Common.Extensions;
 using LysCore.Controllers;
+using LysCore.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using CallRecordDomain = Domain.CallRecord;
+using CrDomain = Domain.CallRecord;
 
 namespace Host.Controllers.CallRecord
 {
     public class CallRecordController : LysAuthController
     {
+        private readonly LazyService<CrDomain.CallRecordManager> m_CallRecordManager = new LazyService<CrDomain.CallRecordManager>();
+
         /// <summary>
         /// 新增通话记录
         /// </summary>
@@ -32,15 +35,14 @@ namespace Host.Controllers.CallRecord
         [Consumes("multipart/form-data")]
         public async Task Create([FromForm]CallRecordDto callRecordDto, IFormFile file, [FromHeader]Guid userId)
         {
-            var callRecordManager = GetService<CallRecordDomain.CallRecordManager>();
-            var callRecord = Mapper.Map<CallRecordDomain.CallRecord>(callRecordDto);
+            var callRecord = Mapper.Map<CrDomain.CallRecord>(callRecordDto);
             callRecord.OwnerId = userId;
 
             var fileBytes = IOExt.StreamToBytes(file?.OpenReadStream());
-            var fileId = await callRecordManager.SaveFileAsync(callRecord, fileBytes);
+            var fileId = await m_CallRecordManager.Instance.SaveFileAsync(callRecord, fileBytes);
             
             callRecord.FileId = fileId;
-            await callRecordManager.CreateAsync(callRecord);
+            await m_CallRecordManager.Instance.CreateAsync(callRecord);
         }
     }
 }

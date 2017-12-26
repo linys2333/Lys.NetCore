@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.AccessTokenValidation;
+using LysCore.Service;
 using LysCore.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,7 +44,7 @@ namespace Host
 
             services.AddMvc(options =>
             {
-                options.Filters.Add(new RequireHttpsAttribute());
+                //options.Filters.Add(new RequireHttpsAttribute());
                 options.Filters.Add(new ExceptionFilter());
                 options.Filters.Add(new ActionFilter());
             }).AddJsonOptions(options => 
@@ -54,12 +55,13 @@ namespace Host
             ConfigureIdentity(services);
             ConfigureSwagger(services);
 
-            return MyInitializer.Initialize(services, Configuration);
+            LysService.ServiceProvider = MyInitializer.Initialize(services, Configuration);
+            return LysService.ServiceProvider;
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            UseHttps(app);
+            //UseHttps(app);
             UseSwagger(app);
             app.UseStaticFiles();
             app.UseAuthentication();

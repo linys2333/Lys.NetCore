@@ -18,10 +18,10 @@ namespace Host
             var host = new WebHostBuilder()
                 .UseKestrel(options =>
                 {
-                    options.Listen(IPAddress.Loopback, 5001, listenOptions =>
-                    {
-                        listenOptions.UseHttps("testCert.pfx", "testPassword");
-                    });
+//                    options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+//                    {
+//                        listenOptions.UseHttps("testCert.pfx", "testPassword");
+//                    });
                 })
                 .UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())

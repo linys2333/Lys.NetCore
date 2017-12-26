@@ -6,11 +6,11 @@ namespace LysCore.Web
 {
     public class ParameterNotNullOrEmptyAttribute : Attribute, IActionFilter
     {
-        private readonly string _param;
+        private readonly string m_Param;
 
         public ParameterNotNullOrEmptyAttribute(string param)
         {
-            _param = param;
+            m_Param = param;
         }
 
         public void OnActionExecuted(ActionExecutedContext context)
@@ -19,8 +19,8 @@ namespace LysCore.Web
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            context.ActionArguments.TryGetValue(_param, out object value);
-            Requires.NotNullOrEmpty(value as string, _param);
+            context.ActionArguments.TryGetValue(m_Param, out object value);
+            Requires.NotNullOrEmpty(value as string, m_Param);
         }
     }
 }

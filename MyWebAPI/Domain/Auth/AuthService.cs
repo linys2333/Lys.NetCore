@@ -1,8 +1,8 @@
 ﻿using Common.Configuration;
 using IdentityModel.Client;
 using LysCore.Common;
-using LysCore.Domain;
 using LysCore.Exceptions;
+using LysCore.Service;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;

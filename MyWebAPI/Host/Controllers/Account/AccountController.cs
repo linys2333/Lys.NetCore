@@ -2,6 +2,7 @@
 using Domain.User;
 using IdentityServer4.AccessTokenValidation;
 using LysCore.Controllers;
+using LysCore.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,6 +11,9 @@ namespace Host.Controllers.Account
 {
     public class AccountController : LysController
     {
+        private readonly LazyService<UserManager> m_UserManager = new LazyService<UserManager>();
+        private readonly LazyService<AuthService> m_AuthService = new LazyService<AuthService>();
+
         /// <summary>
         /// 登录
         /// </summary>
@@ -18,8 +22,8 @@ namespace Host.Controllers.Account
         [HttpPost("~/[action]")]
         public async Task<object> Login([FromBody]LoginDto loginDto)
         {
-            var userId = await GetService<UserManager>().PasswordSignInAsync(loginDto.User.UserName, loginDto.User.Password);
-            var token = await GetService<AuthService>().GetToken(loginDto.Client.ClientId, loginDto.Client.Secret);
+            var userId = await m_UserManager.Instance.PasswordSignInAsync(loginDto.User.UserName, loginDto.User.Password);
+            var token = await m_AuthService.Instance.GetToken(loginDto.Client.ClientId, loginDto.Client.Secret);
 
             return new
             {
@@ -37,7 +41,7 @@ namespace Host.Controllers.Account
         public async Task Logout([FromBody]ClientDto clientDto, [FromHeader]string authorization)
         {
             var token = GetToken(authorization);
-            await GetService<AuthService>().RevokeToken(clientDto.ClientId, clientDto.Secret, token);
+            await m_AuthService.Instance.RevokeToken(clientDto.ClientId, clientDto.Secret, token);
         }
 
         private string GetToken(string authorizationHeader)
