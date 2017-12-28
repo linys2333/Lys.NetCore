@@ -1,7 +1,7 @@
 ﻿using Domain.CallRecord;
 using Domain.User;
 using LysCore.Controllers;
-using LysCore.Service;
+using LysCore.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

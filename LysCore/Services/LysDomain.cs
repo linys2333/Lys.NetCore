@@ -1,4 +1,4 @@
-﻿namespace LysCore.Service
+﻿namespace LysCore.Services
 {
     public class LysDomain
     {

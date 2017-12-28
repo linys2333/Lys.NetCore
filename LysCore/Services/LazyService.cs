@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace LysCore.Service
+namespace LysCore.Services
 {
     public class LysService
     {

@@ -1,8 +1,6 @@
-﻿using LysCore.Service;
-using LysCore.Web;
+﻿using LysCore.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace LysCore.Controllers
 {

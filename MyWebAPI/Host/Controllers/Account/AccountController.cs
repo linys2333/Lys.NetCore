@@ -2,7 +2,7 @@
 using Domain.User;
 using IdentityServer4.AccessTokenValidation;
 using LysCore.Controllers;
-using LysCore.Service;
+using LysCore.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

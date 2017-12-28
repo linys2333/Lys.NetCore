@@ -1,0 +1,20 @@
+
+准备：
+windows试运行
+cmd：xx/xx/ffmpeg.exe -i 1.amr -y 1.mp3
+bat：ffmpeg.exe -i 1.amr -y 1.mp3
+
+一、linux安装ffmpeg
+1、源码包编译
+http://ffmpeg.org/download.html
+https://www.cnblogs.com/wi100sh/p/4178021.html
+本人未编译成功。。。
+
+2、直接安装
+sudo apt install ffmpeg
+sudo apt remove ffmpeg
+全局命令：ffmpeg -i 1.amr -f 1.mp3
+
+3、已编译免安装
+https://www.johnvansickle.com/ffmpeg/  release  x86_64 build
+需指定命令路径 xx/xx/ffmpeg -i 1.amr -f 1.mp3

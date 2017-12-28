@@ -1,6 +1,6 @@
 ﻿using LysCore.Common;
 using LysCore.Exceptions;
-using LysCore.Service;
+using LysCore.Services;
 using System;
 using System.Threading.Tasks;
 using System.Web.Helpers;
@@ -24,12 +24,11 @@ namespace Domain.User
             Requires.NotNullOrEmpty(password, nameof(password));
             
             var user = await m_UserRepository.Instance.FindByNameAsync(userName);
-            var result = CheckSignInAsync(user, password);
+            var isChecked = CheckSignInAsync(user, password);
 
-            if (!result)
+            if (!isChecked)
             {
-                var errorMessage = "用户名或者密码错误";
-                throw new ValidateException(errorMessage);
+                throw new ValidateException("用户名或者密码错误");
             }
 
             return user.Id;
@@ -49,7 +48,7 @@ namespace Domain.User
                 case UserStatus.Normal:
                     break;
                 default:
-                    throw new NotSupportedException("不受支持的用户状态");
+                    throw new ValidateException("不受支持的用户状态");
             }
 
             return true;

@@ -1,4 +1,5 @@
 ﻿using LysCore.Common;
+using LysCore.Exceptions;
 
 namespace LysCore.Web
 {
@@ -8,27 +9,39 @@ namespace LysCore.Web
 
         public ResponseError Error { get; set; }
 
-        public AjaxResponse(bool isSuccess)
+        private string m_DefaultCode = LysConstants.Errors.InternalServerError;
+
+        protected AjaxResponse(bool isSuccess)
         {
             IsSuccess = isSuccess;
         }
 
-        public AjaxResponse(bool isSuccess, string errorMessage)
+        protected AjaxResponse(string errorMessage)
         {
-            IsSuccess = isSuccess;
+            IsSuccess = false;
             Error = new ResponseError
             {
-                Code = LysConstants.Errors.InternalServerError,
+                Code = m_DefaultCode,
                 Message = errorMessage
             };
         }
 
-        public AjaxResponse(bool isSuccess, ResponseError error)
+        protected AjaxResponse(ResponseError error)
         {
-            IsSuccess = isSuccess;
+            IsSuccess = false;
             Error = error ?? new ResponseError
             {
-                Code = LysConstants.Errors.InternalServerError,
+                Code = m_DefaultCode
+            };
+        }
+
+        protected AjaxResponse(BusinessException exception)
+        {
+            IsSuccess = false;
+            Error = new ResponseError
+            {
+                Code = exception.ErrorCode,
+                Message = exception.Message
             };
         }
 
@@ -36,9 +49,13 @@ namespace LysCore.Web
 
         public static AjaxResponse Ok<T>(T data) => new AjaxResponse<T>(true, data);
 
-        public static AjaxResponse Fail(string errorMessage) => new AjaxResponse(false, errorMessage);
+        public static AjaxResponse Fail() => new AjaxResponse(false);
 
-        public static AjaxResponse Fail(ResponseError error) => new AjaxResponse(false, error);
+        public static AjaxResponse Fail(string errorMessage) => new AjaxResponse(errorMessage);
+
+        public static AjaxResponse Fail(ResponseError error) => new AjaxResponse(error);
+
+        public static AjaxResponse Fail(BusinessException exception) => new AjaxResponse(exception);
     }
 
     public class AjaxResponse<T> : AjaxResponse

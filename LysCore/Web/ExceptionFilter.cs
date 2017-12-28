@@ -1,4 +1,5 @@
-﻿using LysCore.Common.Extensions;
+﻿using LysCore.Common;
+using LysCore.Common.Extensions;
 using LysCore.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -6,7 +7,6 @@ using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Net;
-using LysCore.Common;
 
 namespace LysCore.Web
 {
@@ -15,23 +15,53 @@ namespace LysCore.Web
         public void OnException(ExceptionContext context)
         {
             var exception = context.Exception.GetException();
-            var response = AjaxResponse.Fail(exception.Message);
 
-            if (exception is ArgumentNullException)
+            if (exception is ArgumentException)
             {
-                response.Error.Code = LysConstants.Errors.BadRequest;
+                context.Result = BadRequestHandle(exception);
             }
             else if (exception is BusinessException)
             {
-                response.Error.Code = (exception as BusinessException).ErrorCode;
+                context.Result = BusinessErrorHandle(exception as BusinessException);
+            }
+            else
+            {
+                context.Result = InternalErrorHandle(exception);
             }
 
-            context.Result = new JsonResult(response)
+            var response = context.Result as JsonResult;
+            Log.Logger.Error(context.Exception, JsonConvert.SerializeObject(response.Value));
+        }
+
+        private JsonResult InternalErrorHandle(Exception exception)
+        {
+            var response = AjaxResponse.Fail(exception.Message);
+            return new JsonResult(response.Error)
+            {
+                StatusCode = (int)HttpStatusCode.InternalServerError
+            };
+        }
+
+        private JsonResult BadRequestHandle(Exception exception)
+        {
+            var response = AjaxResponse.Fail(new ResponseError
+            {
+                Code = LysConstants.Errors.BadRequest,
+                Message = exception.Message
+            });
+            return new JsonResult(response.Error)
+            {
+                StatusCode = (int) HttpStatusCode.BadRequest
+            };
+        }
+
+        private JsonResult BusinessErrorHandle(BusinessException exception)
+        {
+            var response = AjaxResponse.Fail(exception);
+            return new JsonResult(response)
             {
                 StatusCode = (int)HttpStatusCode.OK
             };
-
-            Log.Logger.Error(context.Exception, JsonConvert.SerializeObject(response.Error));
         }
     }
 }

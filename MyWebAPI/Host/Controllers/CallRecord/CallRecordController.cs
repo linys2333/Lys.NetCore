@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LysCore.Common.Extensions;
 using LysCore.Controllers;
-using LysCore.Service;
+using LysCore.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
