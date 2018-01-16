@@ -5,6 +5,7 @@ using LysCore.Exceptions;
 using LysCore.Services;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Domain.Auth
@@ -30,7 +31,7 @@ namespace Domain.Auth
 
             if (tokenResponse.IsError)
             {
-                throw new BusinessException(tokenResponse.Error);
+                throw new HttpRequestException(tokenResponse.Error);
             }
 
             return tokenResponse.Json;
@@ -49,7 +50,7 @@ namespace Domain.Auth
 
             if (tokenResponse.IsError)
             {
-                throw new BusinessException(tokenResponse.Error);
+                throw new HttpRequestException(tokenResponse.Error);
             }
 
             return tokenResponse.Json;

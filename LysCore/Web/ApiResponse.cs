@@ -3,7 +3,7 @@ using LysCore.Exceptions;
 
 namespace LysCore.Web
 {
-    public class AjaxResponse
+    public class ApiResponse
     {
         public bool IsSuccess { get; set; }
 
@@ -11,12 +11,12 @@ namespace LysCore.Web
 
         private string m_DefaultCode = LysConstants.Errors.InternalServerError;
 
-        protected AjaxResponse(bool isSuccess)
+        protected ApiResponse(bool isSuccess)
         {
             IsSuccess = isSuccess;
         }
 
-        protected AjaxResponse(string errorMessage)
+        protected ApiResponse(string errorMessage)
         {
             IsSuccess = false;
             Error = new ResponseError
@@ -26,7 +26,7 @@ namespace LysCore.Web
             };
         }
 
-        protected AjaxResponse(ResponseError error)
+        protected ApiResponse(ResponseError error)
         {
             IsSuccess = false;
             Error = error ?? new ResponseError
@@ -35,7 +35,7 @@ namespace LysCore.Web
             };
         }
 
-        protected AjaxResponse(BusinessException exception)
+        protected ApiResponse(BusinessException exception)
         {
             IsSuccess = false;
             Error = new ResponseError
@@ -45,24 +45,24 @@ namespace LysCore.Web
             };
         }
 
-        public static AjaxResponse Ok() => new AjaxResponse(true);
+        public static ApiResponse Ok() => new ApiResponse(true);
 
-        public static AjaxResponse Ok<T>(T data) => new AjaxResponse<T>(true, data);
+        public static ApiResponse Ok<T>(T data) => new ApiResponse<T>(true, data);
 
-        public static AjaxResponse Fail() => new AjaxResponse(false);
+        public static ApiResponse Fail() => new ApiResponse(false);
 
-        public static AjaxResponse Fail(string errorMessage) => new AjaxResponse(errorMessage);
+        public static ApiResponse Fail(string errorMessage) => new ApiResponse(errorMessage);
 
-        public static AjaxResponse Fail(ResponseError error) => new AjaxResponse(error);
+        public static ApiResponse Fail(ResponseError error) => new ApiResponse(error);
 
-        public static AjaxResponse Fail(BusinessException exception) => new AjaxResponse(exception);
+        public static ApiResponse Fail(BusinessException exception) => new ApiResponse(exception);
     }
 
-    public class AjaxResponse<T> : AjaxResponse
+    public class ApiResponse<T> : ApiResponse
     {
         public T Data { get; set; }
 
-        public AjaxResponse(bool isSuccess, T data) : base(isSuccess)
+        public ApiResponse(bool isSuccess, T data) : base(isSuccess)
         {
             Data = data;
         }
