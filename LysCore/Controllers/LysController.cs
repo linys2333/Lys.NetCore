@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LysCore.Controllers
 {
     [Produces("application/json")]
-    [ProducesResponseType(typeof(AjaxResponse<object>), 200)]
+    [ProducesResponseType(typeof(ApiResponse<object>), 200)]
     [Route("[controller]")]
     public class LysController : ControllerBase
     {

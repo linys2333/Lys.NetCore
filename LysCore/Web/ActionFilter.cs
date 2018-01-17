@@ -6,26 +6,26 @@ namespace LysCore.Web
 {
     public class ActionFilter : IActionFilter
     {
-        public void OnActionExecuting(ActionExecutingContext context)
+        public virtual void OnActionExecuting(ActionExecutingContext context)
         {
 
         }
 
-        public void OnActionExecuted(ActionExecutedContext context)
+        public virtual void OnActionExecuted(ActionExecutedContext context)
         {
-            AjaxResponse response = null;
+            ApiResponse response = null;
 
             if (context.Result is EmptyResult)
             {
-                response = AjaxResponse.Ok();
+                response = ApiResponse.Ok();
             }
             else if (context.Result is ObjectResult)
             {
-                response = AjaxResponse.Ok(((ObjectResult)context.Result).Value);
+                response = ApiResponse.Ok(((ObjectResult)context.Result).Value);
             }
             else if (context.Result is ContentResult)
             {
-                response = AjaxResponse.Ok(((ContentResult) context.Result).Content);
+                response = ApiResponse.Ok(((ContentResult) context.Result).Content);
             }
 
             if (response != null)

@@ -1,10 +1,10 @@
 ﻿using LysCore.Common;
 using LysCore.Common.Extensions;
 using LysCore.Exceptions;
+using LysCore.Log;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using Serilog;
 using System;
 using System.Net;
 
@@ -12,7 +12,7 @@ namespace LysCore.Web
 {
     public class ExceptionFilter : IExceptionFilter
     {
-        public void OnException(ExceptionContext context)
+        public virtual void OnException(ExceptionContext context)
         {
             var exception = context.Exception.GetException();
 
@@ -28,14 +28,14 @@ namespace LysCore.Web
             {
                 context.Result = InternalErrorHandle(exception);
             }
-
-            var response = context.Result as JsonResult;
-            Log.Logger.Error(context.Exception, JsonConvert.SerializeObject(response.Value));
         }
 
         private JsonResult InternalErrorHandle(Exception exception)
         {
-            var response = AjaxResponse.Fail(exception.Message);
+            var response = ApiResponse.Fail(exception.Message);
+
+            LysLog.Logger.Error(JsonConvert.SerializeObject(response.Error));
+
             return new JsonResult(response.Error)
             {
                 StatusCode = (int)HttpStatusCode.InternalServerError
@@ -44,11 +44,14 @@ namespace LysCore.Web
 
         private JsonResult BadRequestHandle(Exception exception)
         {
-            var response = AjaxResponse.Fail(new ResponseError
+            var response = ApiResponse.Fail(new ResponseError
             {
                 Code = LysConstants.Errors.BadRequest,
                 Message = exception.Message
             });
+
+            LysLog.Logger.Error(JsonConvert.SerializeObject(response.Error));
+
             return new JsonResult(response.Error)
             {
                 StatusCode = (int) HttpStatusCode.BadRequest
@@ -57,7 +60,10 @@ namespace LysCore.Web
 
         private JsonResult BusinessErrorHandle(BusinessException exception)
         {
-            var response = AjaxResponse.Fail(exception);
+            var response = ApiResponse.Fail(exception);
+
+            LysLog.BizLogger.Error(JsonConvert.SerializeObject(response));
+
             return new JsonResult(response)
             {
                 StatusCode = (int)HttpStatusCode.OK

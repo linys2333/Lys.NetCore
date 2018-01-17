@@ -1,9 +1,9 @@
 ﻿using IdentityServer4.AccessTokenValidation;
+using LysCore.Log;
 using LysCore.Services;
 using LysCore.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -76,11 +76,18 @@ namespace Host
 
         private void ConfigureLogger(IServiceCollection services)
         {
-            Log.Logger = new LoggerConfiguration()
+            // TODO：重载BizLogger配置
+            var serilogConfig = Configuration.GetSection("Serilog");
+
+            LysLog.BizLogger = new LoggerConfiguration()
+                .ReadFrom.Configuration(serilogConfig)
+                .CreateLogger();
+
+            LysLog.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .CreateLogger();
 
-            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(LysLog.Logger, true));
         }
 
         private void ConfigureIdentity(IServiceCollection services)
