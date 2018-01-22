@@ -19,7 +19,7 @@ namespace Domain.User
         public string PasswordHash { get; set; }
         
         [Required]
-        public Guid FirmId { get; set; }
+        public Guid CompanyId { get; set; }
 
         public UserStatus Status { get; set; }
     }

@@ -4,7 +4,6 @@ using Common.Interfaces;
 using LysCore.Common;
 using LysCore.Common.Extensions;
 using LysCore.Exceptions;
-using LysCore.FileService;
 using LysCore.Services;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -69,7 +68,7 @@ namespace Domain.CallRecord
                 var mp3Bytes = await File.ReadAllBytesAsync(mp3Path);
                 if (mp3Bytes != null && mp3Bytes.Any())
                 {
-                    var fileId = await SaveToOSSAsync(callRecord.OwnerId, mp3Bytes, "mp3");
+                    var fileId = await UploadFileServerAsync(callRecord.OwnerId, mp3Bytes, "mp3");
                     return fileId;
                 }
             }
@@ -78,27 +77,20 @@ namespace Domain.CallRecord
         }
 
         /// <summary>
-        /// 上传至阿里云
+        /// 上传至文件服务器
         /// </summary>
-        private async Task<Guid> SaveToOSSAsync(Guid ownerId, byte[] fileBytes, string fileExt = null)
+        private async Task<Guid> UploadFileServerAsync(Guid ownerId, byte[] fileBytes, string fileExt = null)
         {
             Requires.NotNullGuid(ownerId, nameof(ownerId));
             Requires.NotNull(fileBytes, nameof(fileBytes));
 
             var fileId = SequentialGuid.NewGuid();
 
-            var file = new AliOssFile
+            var file = new
             {
-                AppName = m_FileServiceConfig.AppName,
-                Key = fileId.ToString(),
-                Data = fileBytes,
-                OwnerId = ownerId.ToString(),
+                FileId = fileId,
                 FileName = string.IsNullOrEmpty(fileExt) ? fileId.ToString() : $"{fileId}.{fileExt}",
-                CodePage = 936,  // gb2312
-                Created = DateTime.Now,
-                Updated = DateTime.Now,
-                FileStatus = FileStatus.Normal,
-                Remark = "电话机录音文件"
+                Data = fileBytes
             };
             
             var client = new HttpClient();
@@ -107,7 +99,7 @@ namespace Domain.CallRecord
             var errMsg = string.Empty;
             try
             {
-                var response = await client.PostAsync($"{m_FileServiceConfig.BaseUrl}file/save", content);
+                var response = await client.PostAsync($"{m_FileServiceConfig.BaseUrl}file/upload", content);
                 if (!response.IsSuccessStatusCode)
                 {
                     errMsg = await response.Content.ReadAsStringAsync();

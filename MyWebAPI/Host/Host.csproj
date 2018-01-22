@@ -15,9 +15,13 @@
 
   <ItemGroup>
     <Compile Remove="Common\**" />
+    <Compile Remove="Publish\**" />
     <Content Remove="Common\**" />
+    <Content Remove="Publish\**" />
     <EmbeddedResource Remove="Common\**" />
+    <EmbeddedResource Remove="Publish\**" />
     <None Remove="Common\**" />
+    <None Remove="Publish\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +44,11 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Publish\FFmpeg\ffmpeg" />
+    <None Include="Publish\FFmpeg\ffmpeg.exe" />
   </ItemGroup>
 
   <ItemGroup>

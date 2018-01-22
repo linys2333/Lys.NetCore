@@ -6,3 +6,5 @@ packages
 debug
 publish
 Logs
+
+*.csproj.user

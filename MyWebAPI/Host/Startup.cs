@@ -62,7 +62,12 @@ namespace Host
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             //UseHttps(app);
-            UseSwagger(app);
+
+            if (!env.IsProduction())
+            {
+                UseSwagger(app);
+            }
+
             app.UseStaticFiles();
             app.UseAuthentication();
 

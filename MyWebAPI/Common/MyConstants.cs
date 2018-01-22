@@ -6,7 +6,7 @@ namespace Common
     {
         public static class Paths
         {
-            public static readonly string FFmpegFolder = Path.Combine(Directory.GetCurrentDirectory(), "FFmpeg");
+            public static readonly string FFmpegFolder = Path.Combine(Directory.GetCurrentDirectory(), "Publish", "FFmpeg");
         }
 
         public static class Errors
