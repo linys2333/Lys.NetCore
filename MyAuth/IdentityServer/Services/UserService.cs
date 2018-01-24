@@ -6,7 +6,7 @@ namespace IdentityServer.Services
     {
         public string Login(string name, string pwd)
         {
-            var user = Config.GetUsers().FirstOrDefault(u => u.Username == name && u.Password == pwd);
+            var user = AuthConfig.GetUsers().FirstOrDefault(u => u.Username == name && u.Password == pwd);
             return user?.SubjectId ?? "";
         }
     }

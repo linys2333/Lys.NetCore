@@ -54,7 +54,7 @@ namespace Host
 
             ConfigureIdentity(services);
             ConfigureSwagger(services);
-
+            
             LysService.ServiceProvider = MyInitializer.Initialize(services, Configuration);
             return LysService.ServiceProvider;
         }
@@ -124,7 +124,8 @@ namespace Host
                     TokenUrl = Configuration["IdentityServer:TokenUrl"],
                     Scopes = new Dictionary<string, string>
                     {
-                        { "api1", "api1" },
+                        // 供Swagger验证界面选择
+                        { "swagger", "可访问的API" }
                     }
                 });
  
@@ -148,10 +149,7 @@ namespace Host
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.ConfigureOAuth2(Configuration["IdentityServer:ClinetId"], 
-                    Configuration["IdentityServer:ClinetSecret"],
-                    "", 
-                    Configuration["IdentityServer:ApiName"]);
+                c.ConfigureOAuth2("debug", "debug", "", Configuration["IdentityServer:ApiName"]);
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyWebAPI");
                 c.InjectStylesheet("/swagger/custom.css");
             });
