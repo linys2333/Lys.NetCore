@@ -1,5 +1,8 @@
 ﻿namespace LysCore.Common
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class InvokeResult
     {
         public bool IsSuccess { get; set; }

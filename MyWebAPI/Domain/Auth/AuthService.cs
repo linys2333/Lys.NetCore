@@ -1,7 +1,6 @@
 ﻿using Common.Configuration;
 using IdentityModel.Client;
 using LysCore.Common;
-using LysCore.Exceptions;
 using LysCore.Services;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
@@ -19,6 +18,12 @@ namespace Domain.Auth
             m_AuthConfig = authConfig.Value;
         }
         
+        /// <summary>
+        /// 获取Token
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="secret"></param>
+        /// <returns></returns>
         public async Task<JObject> GetToken(string clientId, string secret)
         {
             Requires.NotNullOrEmpty(clientId, nameof(clientId));
@@ -37,6 +42,13 @@ namespace Domain.Auth
             return tokenResponse.Json;
         }
         
+        /// <summary>
+        /// 注销Token
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="secret"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public async Task<JObject> RevokeToken(string clientId, string secret, string token)
         {
             Requires.NotNullOrEmpty(clientId, nameof(clientId));
@@ -46,6 +58,7 @@ namespace Domain.Auth
             var discoveryResponse = await DiscoveryClient.GetAsync(m_AuthConfig.Authority);
             var revocationUrl = discoveryResponse.IsError ? m_AuthConfig.RevocationUrl : discoveryResponse.RevocationEndpoint;
             var tokenClient = new TokenRevocationClient(revocationUrl, clientId, secret);
+            // IdentityServer中，AccessTokenType需设置为AccessTokenType.Reference
             var tokenResponse = await tokenClient.RevokeAccessTokenAsync(token);
 
             if (tokenResponse.IsError)

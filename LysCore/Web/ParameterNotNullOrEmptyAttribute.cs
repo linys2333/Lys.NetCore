@@ -4,6 +4,9 @@ using System;
 
 namespace LysCore.Web
 {
+    /// <summary>
+    /// 字符串请求参数空校验
+    /// </summary>
     public class ParameterNotNullOrEmptyAttribute : Attribute, IActionFilter
     {
         private readonly string m_Param;

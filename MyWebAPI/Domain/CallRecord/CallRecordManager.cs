@@ -44,6 +44,12 @@ namespace Domain.CallRecord
             return count;
         }
 
+        /// <summary>
+        /// 保存录音文件
+        /// </summary>
+        /// <param name="callRecord"></param>
+        /// <param name="amrBytes"></param>
+        /// <returns></returns>
         public async Task<Guid?> SaveFileAsync(CallRecord callRecord, byte[] amrBytes)
         {
             Requires.NotNull(callRecord, nameof(callRecord));

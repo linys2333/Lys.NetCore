@@ -26,6 +26,7 @@ namespace Host
                .SetBasePath(env.ContentRootPath)
                .AddInMemoryCollection()
                .AddJsonFile("appsettings.json", true, true)
+                // 不同环境配置
                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
 
             if (env.IsEnvironment("Development"))
@@ -44,6 +45,7 @@ namespace Host
 
             services.AddMvc(options =>
             {
+                // 使用https
                 //options.Filters.Add(new RequireHttpsAttribute());
                 options.Filters.Add(new ExceptionFilter());
                 options.Filters.Add(new ActionFilter());
@@ -63,6 +65,7 @@ namespace Host
         {
             //UseHttps(app);
 
+            // 非生产环境才可查看API文档
             if (!env.IsProduction())
             {
                 UseSwagger(app);
@@ -140,6 +143,7 @@ namespace Host
 
         private void UseHttps(IApplicationBuilder app)
         {
+            // http重定向到https
             var options = new RewriteOptions().AddRedirectToHttps();
             app.UseRewriter(options);
         }

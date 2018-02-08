@@ -2,6 +2,9 @@
 
 namespace LysCore.Common
 {
+    /// <summary>
+    /// 方法入参校验类
+    /// </summary>
     public static class Requires
     {
         public static void NotNull<T>(T value, string parameterName) where T : class

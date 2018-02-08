@@ -2,6 +2,9 @@
 
 namespace LysCore.Exceptions
 {
+    /// <summary>
+    /// 业务通用异常
+    /// </summary>
     public class BusinessException : Exception
     {
         public string ErrorCode { get; }
@@ -13,6 +16,9 @@ namespace LysCore.Exceptions
         }
     }
 
+    /// <summary>
+    /// 业务校验异常
+    /// </summary>
     public class ValidateException : BusinessException
     {
         public ValidateException(string msg, string errorCode = null)

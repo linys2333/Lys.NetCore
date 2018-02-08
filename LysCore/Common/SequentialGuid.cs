@@ -2,6 +2,9 @@
 
 namespace LysCore.Common
 {
+    /// <summary>
+    /// 有序GUID
+    /// </summary>
     public static class SequentialGuid
     {
         public static Guid NewGuid()

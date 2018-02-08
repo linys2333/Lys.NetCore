@@ -7,6 +7,7 @@ namespace IdentityServer
 {
     public class ResourceOwnerValidator : IResourceOwnerPasswordValidator
     {
+        // 密码验证模式下的自定义校验
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
             var userId = new UserService().Login(context.UserName, context.Password);

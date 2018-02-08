@@ -8,7 +8,7 @@
 
 > API文档（本地部署）：http://localhost:5001/swagger/
 
-> 发布后将 MyWebAPI\Host\FFmpeg 文件夹拷贝到发布目录
+> ~~发布后将 MyWebAPI\Host\FFmpeg 文件夹拷贝到发布目录~~
 
 > 系统架构
 

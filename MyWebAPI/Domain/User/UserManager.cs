@@ -11,6 +11,11 @@ namespace Domain.User
     {
         private readonly LazyService<IUserRepository> m_UserRepository = new LazyService<IUserRepository>();
         
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<User> GetAsync(Guid userId)
         {
             Requires.NotNullGuid(userId, nameof(userId));
@@ -18,6 +23,12 @@ namespace Domain.User
             return user;
         }
 
+        /// <summary>
+        /// 密码模式验证
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<Guid> PasswordSignInAsync(string userName, string password)
         {
             Requires.NotNullOrEmpty(userName, nameof(userName));
@@ -34,6 +45,12 @@ namespace Domain.User
             return user.Id;
         }
 
+        /// <summary>
+        /// 登陆校验
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private bool CheckSignInAsync(User user, string password)
         {
             if (user == null || !Crypto.VerifyHashedPassword(user.PasswordHash, password))

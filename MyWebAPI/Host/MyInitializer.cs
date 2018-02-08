@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using Common;
 using Common.Configuration;
 using Common.FFmpeg;
 using Common.Interfaces;
@@ -17,6 +16,9 @@ using System.Reflection;
 
 namespace Host
 {
+    /// <summary>
+    /// 业务相关初始化
+    /// </summary>
     public static class MyInitializer
     {
         public static IServiceProvider Initialize(IServiceCollection services, IConfiguration config)
@@ -33,6 +35,10 @@ namespace Host
             return ConfigureServiceProvider(services);
         }
 
+        /// <summary>
+        /// 不同平台调用不同FFmpeg实现
+        /// </summary>
+        /// <param name="services"></param>
         private static void ConfigureFFmpeg(IServiceCollection services)
         {
             IFFmpeg ffmpeg;
@@ -58,6 +64,11 @@ namespace Host
             });
         }
 
+        /// <summary>
+        /// DI注册
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         private static IServiceProvider ConfigureServiceProvider(IServiceCollection services)
         {
             var builder = new ContainerBuilder();

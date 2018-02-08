@@ -10,26 +10,38 @@ using System.Net;
 
 namespace LysCore.Web
 {
+    /// <summary>
+    /// 异常过滤器
+    /// </summary>
     public class ExceptionFilter : IExceptionFilter
     {
+        /// <summary>
+        /// 统一封装异常响应格式
+        /// </summary>
+        /// <param name="context"></param>
         public virtual void OnException(ExceptionContext context)
         {
             var exception = context.Exception.GetException();
 
-            if (exception is ArgumentException)
+            switch (exception)
             {
-                context.Result = BadRequestHandle(exception);
-            }
-            else if (exception is BusinessException)
-            {
-                context.Result = BusinessErrorHandle(exception as BusinessException);
-            }
-            else
-            {
-                context.Result = InternalErrorHandle(exception);
+                case ArgumentException _:
+                    context.Result = BadRequestHandle(exception);
+                    break;
+                case BusinessException _:
+                    context.Result = BusinessErrorHandle(exception as BusinessException);
+                    break;
+                default:
+                    context.Result = InternalErrorHandle(exception);
+                    break;
             }
         }
 
+        /// <summary>
+        /// 500响应处理
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         private JsonResult InternalErrorHandle(Exception exception)
         {
             var response = ApiResponse.Fail(exception.Message);
@@ -42,6 +54,11 @@ namespace LysCore.Web
             };
         }
 
+        /// <summary>
+        /// 400响应处理
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         private JsonResult BadRequestHandle(Exception exception)
         {
             var response = ApiResponse.Fail(new ResponseError
@@ -58,6 +75,11 @@ namespace LysCore.Web
             };
         }
 
+        /// <summary>
+        /// 普通异常处理
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         private JsonResult BusinessErrorHandle(BusinessException exception)
         {
             var response = ApiResponse.Fail(exception);

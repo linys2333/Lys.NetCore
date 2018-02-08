@@ -11,6 +11,7 @@ namespace Host
         {
             var config = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
+                // 配置启动url
                .AddJsonFile("hosting.json")
                .AddCommandLine(args)
                .Build();
@@ -18,6 +19,7 @@ namespace Host
             var host = new WebHostBuilder()
                 .UseKestrel(options =>
                 {
+                    // 配置https证书
 //                    options.Listen(IPAddress.Loopback, 5001, listenOptions =>
 //                    {
 //                        listenOptions.UseHttps("testCert.pfx", "testPassword");

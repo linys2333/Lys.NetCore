@@ -36,6 +36,7 @@ namespace IdentityServer
             {
                 new Client
                 {
+                    // OAuth2 - 客户端验证模式
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientId = "debug",
                     ClientSecrets =
@@ -44,7 +45,9 @@ namespace IdentityServer
                     },
                     AllowedScopes = { "swagger" },
                     AllowedCorsOrigins = clientSetting.AllowedCorsOrigins,
+                    // 设置为引用类型，才能在API端使用RevokeAccessTokenAsync注销token
                     AccessTokenType = AccessTokenType.Reference,
+                    // token有效期，AccessTokenType=Reference下设置才有效
                     AccessTokenLifetime = 86400  // 一天
                 },
                 new Client
@@ -62,6 +65,7 @@ namespace IdentityServer
                 },
                 new Client
                 {
+                    // OAuth2 - 密码验证模式
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientId = "client.pwd",
                     ClientSecrets =

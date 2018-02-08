@@ -12,6 +12,11 @@ namespace EF.Repositories
         {
         }
 
+        /// <summary>
+        /// 统计今日通话次数
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<int> CountMyTodayCallsAsync(Guid userId)
         {
             var today = DateTime.Now.Date;

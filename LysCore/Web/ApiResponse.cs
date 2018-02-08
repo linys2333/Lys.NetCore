@@ -3,6 +3,9 @@ using LysCore.Exceptions;
 
 namespace LysCore.Web
 {
+    /// <summary>
+    /// API响应数据
+    /// </summary>
     public class ApiResponse
     {
         public bool IsSuccess { get; set; }

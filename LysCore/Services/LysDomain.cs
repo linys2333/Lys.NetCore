@@ -1,7 +1,9 @@
 ﻿namespace LysCore.Services
 {
-    // TODO：预留扩展
-    public class LysDomain
+    /// <summary>
+    /// 领域层基类
+    /// </summary>
+    public class LysDomain : LysService
     {
     }
 }

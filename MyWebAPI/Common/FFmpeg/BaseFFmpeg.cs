@@ -13,6 +13,8 @@ namespace Common.FFmpeg
 
         public virtual string Convert(string inputPath, string outputPath)
         {
+            // -i表示输入文件；-y表示强制转换，覆盖已有文件
+            // 更多命令见官方文档
             var cmd = $@"{FFmpegPath} -i {inputPath} -y {outputPath}";
             return Run(cmd);
         }

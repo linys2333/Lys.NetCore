@@ -2,6 +2,9 @@
 
 namespace Host.Controllers.CallRecord
 {
+    /// <summary>
+    /// 通话记录
+    /// </summary>
     public class CallRecordDto
     {
         /// <summary>
