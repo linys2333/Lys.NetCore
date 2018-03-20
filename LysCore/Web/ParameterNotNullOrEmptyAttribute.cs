@@ -22,7 +22,7 @@ namespace LysCore.Web
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            context.ActionArguments.TryGetValue(m_Param, out object value);
+            context.ActionArguments.TryGetValue(m_Param, out var value);
             Requires.NotNullOrEmpty(value as string, m_Param);
         }
     }

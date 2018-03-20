@@ -4,6 +4,7 @@ using LysCore.Services;
 using LysCore.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +47,7 @@ namespace Host
             services.AddMvc(options =>
             {
                 // 使用https
-                //options.Filters.Add(new RequireHttpsAttribute());
+                options.Filters.Add(new RequireHttpsAttribute());
                 options.Filters.Add(new ExceptionFilter());
                 options.Filters.Add(new ActionFilter());
             }).AddJsonOptions(options => 
@@ -63,7 +64,7 @@ namespace Host
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //UseHttps(app);
+            UseHttps(app);
 
             // 非生产环境才可查看API文档
             if (!env.IsProduction())

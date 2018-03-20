@@ -20,10 +20,10 @@ namespace Host
                 .UseKestrel(options =>
                 {
                     // 配置https证书
-//                    options.Listen(IPAddress.Loopback, 5001, listenOptions =>
-//                    {
-//                        listenOptions.UseHttps("testCert.pfx", "testPassword");
-//                    });
+                    options.Listen(IPAddress.Any, 44325, listenOptions =>
+                    {
+                        listenOptions.UseHttps("Cert/testCert.pfx", "1234");
+                    });
                 })
                 .UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
