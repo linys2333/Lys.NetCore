@@ -24,11 +24,12 @@ namespace Host
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-               .SetBasePath(env.ContentRootPath)
-               .AddInMemoryCollection()
-               .AddJsonFile("appsettings.json", true, true)
+                .SetBasePath(env.ContentRootPath)
+                .AddInMemoryCollection()
+                .AddJsonFile("appsettings.json", true, true)
                 // 不同环境配置
-               .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
+                .AddJsonFile("hosting.json");
 
             if (env.IsEnvironment("Development"))
             {
@@ -145,7 +146,7 @@ namespace Host
         private void UseHttps(IApplicationBuilder app)
         {
             // http重定向到https
-            var options = new RewriteOptions().AddRedirectToHttps();
+            var options = new RewriteOptions().AddRedirectToHttps(301, Configuration.GetValue<int>("https.port"));
             app.UseRewriter(options);
         }
 

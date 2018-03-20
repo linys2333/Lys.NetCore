@@ -1,3 +1,4 @@
 ﻿{
-  "server.urls": "https://*:44325"
+  "server.urls": "https://*:44325",
+  "https.port": 44325
 }

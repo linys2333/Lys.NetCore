@@ -20,7 +20,7 @@ namespace Host
                 .UseKestrel(options =>
                 {
                     // 配置https证书
-                    options.Listen(IPAddress.Any, 44325, listenOptions =>
+                    options.Listen(IPAddress.Any, config.GetValue<int>("https.port"), listenOptions =>
                     {
                         listenOptions.UseHttps("Cert/testCert.pfx", "1234");
                     });
