@@ -1,6 +1,9 @@
 ﻿using LysCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LysCore.Entities
@@ -14,21 +17,43 @@ namespace LysCore.Entities
             m_DbContext = context;
         }
 
-        public async Task<T> GetAsync(K id)
+        public Task<T> GetAsync(K id)
         {
-            return await m_DbContext.Set<T>().FindAsync(id);
+            return m_DbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task CreateAsync(T entity)
+        public Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter)
+        {
+            return m_DbContext.Set<T>().Where(filter).ToListAsync();
+        }
+
+        public Task<List<T>> GetListAsync()
+        {
+            return m_DbContext.Set<T>().ToListAsync();
+        }
+
+        public Task CreateAsync(T entity)
         {
             m_DbContext.Set<T>().Add(entity);
-            await m_DbContext.SaveChangesAsync();
+            return m_DbContext.SaveChangesAsync();
         }
-        
-        public async Task UpdateAsync(T entity)
+
+        public Task CreateAsync(IEnumerable<T> entitys)
+        {
+            m_DbContext.Set<T>().AddRange(entitys);
+            return m_DbContext.SaveChangesAsync();
+        }
+
+        public Task UpdateAsync(T entity)
         {
             m_DbContext.Set<T>().Update(entity);
-            await m_DbContext.SaveChangesAsync();
+            return m_DbContext.SaveChangesAsync();
+        }
+
+        public Task UpdateAsync(IEnumerable<T> entitys)
+        {
+            m_DbContext.Set<T>().UpdateRange(entitys);
+            return m_DbContext.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(K id)
@@ -36,6 +61,17 @@ namespace LysCore.Entities
             var entity = await GetAsync(id);
             m_DbContext.Set<T>().Remove(entity);
             await m_DbContext.SaveChangesAsync();
+        }
+
+        public Task DeleteAsync(IEnumerable<T> entitys)
+        {
+            m_DbContext.Set<T>().RemoveRange(entitys);
+            return m_DbContext.SaveChangesAsync();
+        }
+
+        public IQueryable<T> Where(Expression<Func<T, bool>> filter)
+        {
+            return m_DbContext.Set<T>().Where(filter);
         }
     }
 

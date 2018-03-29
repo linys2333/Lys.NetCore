@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 
-namespace Domain.User
+namespace Domain.Users
 {
     public class UserManager : LysDomain
     {

@@ -25,7 +25,7 @@ namespace LysCore.Services
             get
             {
                 Requires.NotNull(ServiceProvider, nameof(ServiceProvider));
-                return ActivatorUtilities.GetServiceOrCreateInstance<T>(ServiceProvider);
+                return ServiceProvider.GetRequiredService<T>();
             }
         }
 

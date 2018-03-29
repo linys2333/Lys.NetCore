@@ -1,4 +1,4 @@
-﻿using Domain.User;
+﻿using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 

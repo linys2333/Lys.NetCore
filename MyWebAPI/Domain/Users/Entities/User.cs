@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace Domain.User
+namespace Domain.Users
 {
     public class User : LysEntityBase
     {

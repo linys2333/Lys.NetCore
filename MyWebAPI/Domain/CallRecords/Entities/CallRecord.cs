@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace Domain.CallRecord
+namespace Domain.CallRecords
 {
     public class CallRecord : LysEntityBase
     {

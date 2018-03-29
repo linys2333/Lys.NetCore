@@ -1,5 +1,5 @@
 ﻿using Domain.Auth;
-using Domain.User;
+using Domain.Users;
 using IdentityServer4.AccessTokenValidation;
 using LysCore.Controllers;
 using LysCore.Services;

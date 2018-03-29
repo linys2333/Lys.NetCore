@@ -1,5 +1,5 @@
-﻿using Domain.CallRecord;
-using Domain.User;
+﻿using Domain.CallRecords;
+using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace EF

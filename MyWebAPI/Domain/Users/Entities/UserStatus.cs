@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.User
+namespace Domain.Users
 {
     /// <summary>
     /// 用户状态

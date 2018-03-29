@@ -1,4 +1,4 @@
-﻿using Domain.CallRecord;
+﻿using Domain.CallRecords;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;

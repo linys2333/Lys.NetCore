@@ -4,7 +4,7 @@ using AutoMapper;
 using Common.Configuration;
 using Common.FFmpeg;
 using Common.Interfaces;
-using Domain.CallRecord;
+using Domain.CallRecords;
 using EF;
 using Host.Controllers.CallRecord;
 using Microsoft.EntityFrameworkCore;
