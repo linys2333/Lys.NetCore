@@ -1,6 +1,6 @@
 ## 一些说明
 
-> 基于.Net Core2和OAuth2的RESTful风格的WebAPI系统
+> 基于ASP.Net Core2和OAuth2的RESTful风格的WebAPI系统
 
 > .Net Core学习资料：http://note.youdao.com/noteshare?id=dfe9debb2e7f4f3fe6de05a2a0493fb0
 
