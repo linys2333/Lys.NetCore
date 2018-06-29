@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace LysCore.Entities
 {
-    public class Repository<T, K> : IRepository<T, K> where T : class, IEntity<K>
+    public abstract class Repository<T, K> : IRepository<T, K> where T : class, IEntity<K>
     {
         protected readonly DbContext m_DbContext;
 
-        public Repository(DbContext context)
+        protected Repository(DbContext context)
         {
             m_DbContext = context;
         }
-
+        
         public Task<T> GetAsync(K id)
         {
-            return m_DbContext.Set<T>().FindAsync(id);
+            return m_DbContext.Set<T>().FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
         public Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter)
@@ -75,8 +75,10 @@ namespace LysCore.Entities
         }
     }
 
-    public class LysRepositoryBase<T> : Repository<T, Guid> where T : class, IEntity<Guid>
+    public abstract class LysRepositoryBase<T> : Repository<T, Guid> where T : class, IEntity<Guid>
     {
-        public LysRepositoryBase(DbContext context) : base(context) { }
+        protected LysRepositoryBase(DbContext context) : base(context)
+        {
+        }
     }
 }

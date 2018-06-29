@@ -99,16 +99,17 @@ namespace Domain.CallRecords
                 Data = fileBytes
             };
             
-            var client = new HttpClient();
-            var content = new StringContent(JsonConvert.SerializeObject(file), Encoding.UTF8, "application/json");
-
             var errMsg = string.Empty;
             try
             {
-                var response = await client.PostAsync($"{m_FileServiceConfig.BaseUrl}file/upload", content);
-                if (!response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    errMsg = await response.Content.ReadAsStringAsync();
+                    var content = new StringContent(JsonConvert.SerializeObject(file), Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync($"{m_FileServiceConfig.BaseUrl}file/upload", content);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        errMsg = await response.Content.ReadAsStringAsync();
+                    }
                 }
             }
             catch (Exception ex)
