@@ -32,7 +32,7 @@ namespace Domain.Auth
             var discoveryResponse = await DiscoveryClient.GetAsync(m_AuthConfig.Authority);
             var tokenUrl = discoveryResponse.IsError ? m_AuthConfig.TokenUrl : discoveryResponse.TokenEndpoint;
             var tokenClient = new TokenClient(tokenUrl, clientId, secret);
-            var tokenResponse = await tokenClient.RequestClientCredentialsAsync(m_AuthConfig.ApiName);
+            var tokenResponse = await tokenClient.RequestClientCredentialsAsync(m_AuthConfig.ApiScope);
 
             if (tokenResponse.IsError)
             {

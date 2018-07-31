@@ -48,16 +48,17 @@ namespace Domain.CallRecords
         /// 保存录音文件
         /// </summary>
         /// <param name="callRecord"></param>
+        /// <param name="fileName"></param>
         /// <param name="amrBytes"></param>
         /// <returns></returns>
-        public async Task<Guid?> SaveFileAsync(CallRecord callRecord, byte[] amrBytes)
+        public async Task<Guid?> SaveFileAsync(CallRecord callRecord, string fileName, byte[] amrBytes)
         {
             Requires.NotNull(callRecord, nameof(callRecord));
-            Requires.NotNull(amrBytes, nameof(amrBytes));
+            Requires.NotNullOrEmpty(fileName, nameof(fileName));
 
             if (amrBytes != null && amrBytes.Any())
             {
-                var amrName = $"{callRecord.Id}.amr";
+                var amrName = $"{callRecord.Id}_{fileName}";
                 var mp3Name = $"{callRecord.Id}.mp3";
                 var amrPath = Path.Combine(MyConstants.Paths.FFmpegFolder, amrName);
                 var mp3Path = Path.Combine(MyConstants.Paths.FFmpegFolder, mp3Name);

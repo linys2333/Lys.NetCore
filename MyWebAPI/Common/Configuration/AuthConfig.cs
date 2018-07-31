@@ -9,6 +9,8 @@
 
         public string ApiName { get; set; }
 
+        public string ApiScope { get; set; }
+
         public string TokenUrl { get; set; }
 
         public string RevocationUrl { get; set; }

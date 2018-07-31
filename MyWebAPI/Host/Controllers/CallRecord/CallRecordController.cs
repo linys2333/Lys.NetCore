@@ -39,7 +39,7 @@ namespace Host.Controllers.CallRecord
             callRecord.OwnerId = userId;
 
             var fileBytes = IOExt.StreamToBytes(file?.OpenReadStream());
-            var fileId = await m_CallRecordManager.Instance.SaveFileAsync(callRecord, fileBytes);
+            var fileId = await m_CallRecordManager.Instance.SaveFileAsync(callRecord, file?.FileName, fileBytes);
             
             callRecord.FileId = fileId;
             await m_CallRecordManager.Instance.CreateAsync(callRecord);

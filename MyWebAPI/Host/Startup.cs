@@ -23,12 +23,13 @@ namespace Host
 
         public Startup(IHostingEnvironment env)
         {
+            var environmentName = GetEnvironmentName(env.EnvironmentName);
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddInMemoryCollection()
                 .AddJsonFile("appsettings.json", true, true)
                 // 不同环境配置
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
+                .AddJsonFile($"appsettings.{environmentName}.json", true, true)
                 .AddJsonFile("hosting.json");
 
             if (env.IsEnvironment("Development"))
@@ -114,6 +115,7 @@ namespace Host
 
         private void ConfigureSwagger(IServiceCollection services)
         {
+            var apiScope = Configuration["IdentityServer:ApiScope"];
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Info
@@ -130,7 +132,7 @@ namespace Host
                     Scopes = new Dictionary<string, string>
                     {
                         // 供Swagger验证界面选择
-                        { "swagger", "可访问的API" }
+                        { apiScope, "可访问的API" }
                     }
                 });
  
@@ -159,6 +161,15 @@ namespace Host
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyWebAPI");
                 c.InjectStylesheet("/swagger/custom.css");
             });
+        }
+
+        private static string GetEnvironmentName(string environmentName)
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("environment.json", true)
+                .Build();
+
+            return configuration["EnvironmentName"] ?? environmentName ?? string.Empty;
         }
     }
 }
