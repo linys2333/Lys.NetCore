@@ -47,13 +47,16 @@ namespace Host
             ConfigureLogger(services);
 
             services.AddMvc(options =>
-            {
-                // 使用https
-                options.Filters.Add(new RequireHttpsAttribute());
-                options.Filters.Add(new ExceptionFilter());
-                options.Filters.Add(new ActionFilter());
-            }).AddJsonOptions(options => 
-                options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
+                {
+                    // 使用https
+                    options.Filters.Add(new RequireHttpsAttribute());
+                    options.Filters.Add(new ExceptionFilter());
+                    options.Filters.Add(new ActionFilter());
+                })
+                .AddJsonOptions(options =>
+                    options.SerializerSettings.ContractResolver =
+                        new Newtonsoft.Json.Serialization.DefaultContractResolver())
+                .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddOptions();
 

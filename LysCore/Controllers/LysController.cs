@@ -18,7 +18,7 @@ namespace LysCore.Controllers
     /// 需要校验身份的Controller基类
     /// </summary>
     [Authorize]
-    [ParameterNotNullOrEmpty("userId")]
+    [ParameterNotEmptyGuid("userId")]
     public class LysAuthController : LysController
     {
     }

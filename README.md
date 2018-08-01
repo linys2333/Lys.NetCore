@@ -1,6 +1,6 @@
 ## 一些说明
 
-> 基于ASP.Net Core2和OAuth2的RESTful风格的WebAPI系统
+> 基于ASP.Net Core 2.1和OAuth2的RESTful风格的WebAPI系统
 
 > .Net Core学习资料：http://note.youdao.com/noteshare?id=dfe9debb2e7f4f3fe6de05a2a0493fb0
 
@@ -9,6 +9,8 @@
 > API文档（本地部署）：http://localhost:5001/swagger/
 
 > ~~发布后将 MyWebAPI\Host\FFmpeg 文件夹拷贝到发布目录~~
+
+> 转换失败请检查ffmpeg文件是否有权限
 
 > 系统架构
 
@@ -42,7 +44,7 @@
 
 7、如无必要不主动捕获异常
 
-8、手动记录日志请用LysLog.BizLogger
+8、~~手动记录日志请用LysLog.BizLogger~~
 
 
 > 参考资料

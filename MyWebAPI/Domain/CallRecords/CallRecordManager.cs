@@ -39,7 +39,7 @@ namespace Domain.CallRecords
 
         public async Task<int> CountMyTodayCallsAsync(Guid userId)
         {
-            Requires.NotNullGuid(userId, nameof(userId));
+            Requires.NotNullOrEmpty(userId, nameof(userId));
             var count = await m_CallRecordRepository.Instance.CountMyTodayCallsAsync(userId);
             return count;
         }
@@ -88,7 +88,7 @@ namespace Domain.CallRecords
         /// </summary>
         private async Task<Guid> UploadFileServerAsync(Guid ownerId, byte[] fileBytes, string fileExt = null)
         {
-            Requires.NotNullGuid(ownerId, nameof(ownerId));
+            Requires.NotNullOrEmpty(ownerId, nameof(ownerId));
             Requires.NotNull(fileBytes, nameof(fileBytes));
 
             var fileId = SequentialGuid.NewGuid();

@@ -23,9 +23,9 @@ namespace LysCore.Common
             }
         }
 
-        public static void NotNullGuid(Guid value, string parameterName)
+        public static void NotNullOrEmpty(Guid? value, string parameterName)
         {
-            if (value == Guid.Empty)
+            if (value == null || value == Guid.Empty)
             {
                 throw new ArgumentNullException(parameterName);
             }

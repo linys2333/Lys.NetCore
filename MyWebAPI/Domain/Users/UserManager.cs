@@ -18,7 +18,7 @@ namespace Domain.Users
         /// <returns></returns>
         public async Task<User> GetAsync(Guid userId)
         {
-            Requires.NotNullGuid(userId, nameof(userId));
+            Requires.NotNullOrEmpty(userId, nameof(userId));
             var user = await m_UserRepository.Instance.GetAsync(userId);
             return user;
         }

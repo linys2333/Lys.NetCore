@@ -18,7 +18,7 @@ namespace Host.Controllers.CallRecord
         /// 新增通话记录
         /// </summary>
         /// <remarks>
-        /// 示例：
+        /// 示例：（具体请求格式请用postman模拟查看）
         /// 
         ///     POST api/CallRecord/Save
         ///     Content-Type: multipart/form-data
