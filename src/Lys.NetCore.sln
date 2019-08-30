@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyAuth", "MyAuth", "{EF33A39E-DDDB-4C81-875A-2A2F512B6028}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyWebAPI", "MyWebAPI", "{5A653317-70E0-4507-B02F-18B6FFDC58E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lys.NetCore.IdentityServer", "Lys.NetCore.IdentityServer\Lys.NetCore.IdentityServer.csproj", "{68268E24-EBA0-4003-92EC-6E1F5C4EE057}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lys.NetCore.Domain", "Lys.NetCore.Domain\Lys.NetCore.Domain.csproj", "{288467D1-2DFE-4DA3-A53F-B22668BB13BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lys.NetCore.EF", "Lys.NetCore.EF\Lys.NetCore.EF.csproj", "{80DFC32F-182A-4485-B565-0466CD7EF884}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lys.NetCore.Infrastructure", "Lys.NetCore.Infrastructure\Lys.NetCore.Infrastructure.csproj", "{79C90AAD-D40F-48FE-BE8B-028F76D8B008}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lys.NetCore.Portal", "Lys.NetCore.Portal\Lys.NetCore.Portal.csproj", "{2E3FB7E3-A551-4C8C-BF66-A171355162F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68268E24-EBA0-4003-92EC-6E1F5C4EE057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68268E24-EBA0-4003-92EC-6E1F5C4EE057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68268E24-EBA0-4003-92EC-6E1F5C4EE057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68268E24-EBA0-4003-92EC-6E1F5C4EE057}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288467D1-2DFE-4DA3-A53F-B22668BB13BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288467D1-2DFE-4DA3-A53F-B22668BB13BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288467D1-2DFE-4DA3-A53F-B22668BB13BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288467D1-2DFE-4DA3-A53F-B22668BB13BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80DFC32F-182A-4485-B565-0466CD7EF884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DFC32F-182A-4485-B565-0466CD7EF884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80DFC32F-182A-4485-B565-0466CD7EF884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DFC32F-182A-4485-B565-0466CD7EF884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C90AAD-D40F-48FE-BE8B-028F76D8B008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C90AAD-D40F-48FE-BE8B-028F76D8B008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C90AAD-D40F-48FE-BE8B-028F76D8B008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C90AAD-D40F-48FE-BE8B-028F76D8B008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3FB7E3-A551-4C8C-BF66-A171355162F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3FB7E3-A551-4C8C-BF66-A171355162F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3FB7E3-A551-4C8C-BF66-A171355162F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3FB7E3-A551-4C8C-BF66-A171355162F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{68268E24-EBA0-4003-92EC-6E1F5C4EE057} = {EF33A39E-DDDB-4C81-875A-2A2F512B6028}
+		{288467D1-2DFE-4DA3-A53F-B22668BB13BE} = {5A653317-70E0-4507-B02F-18B6FFDC58E4}
+		{80DFC32F-182A-4485-B565-0466CD7EF884} = {5A653317-70E0-4507-B02F-18B6FFDC58E4}
+		{79C90AAD-D40F-48FE-BE8B-028F76D8B008} = {5A653317-70E0-4507-B02F-18B6FFDC58E4}
+		{2E3FB7E3-A551-4C8C-BF66-A171355162F3} = {5A653317-70E0-4507-B02F-18B6FFDC58E4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05C87E29-8EE0-401F-9518-A1F0B593BA30}
+	EndGlobalSection
+EndGlobal

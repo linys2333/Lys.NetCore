@@ -1,6 +1,6 @@
 ## 一些说明
 
-> 基于ASP.Net Core 2.1和OAuth2的RESTful风格的WebAPI系统
+> 基于ASP.Net Core 2.2和OAuth2的RESTful风格的WebAPI系统
 
 > .Net Core学习资料：http://note.youdao.com/noteshare?id=dfe9debb2e7f4f3fe6de05a2a0493fb0
 
@@ -16,21 +16,13 @@
 
  ![进入应用](./Doc/WebAPI架构图.png)
 
-> 一些开发原则：
+> 代码说明
 
 1、依赖注入由构造函数改为按需实例化
 
-2、实例化后可重复使用，无需提炼变量
+2、实例化后可重复使用，无需提取变量
 
-3、所有校验如无必要改为抛出业务类异常（正常响应200，ValidateException用于业务校验，BusinessException一般用于前端提示或特殊处理）
-
-4、ArgumentException：BadRequest；BusinessException：OK（IsSuccess=false）；其余异常：InternalServerError
-
-5、所有方法如无必要直接返回结果无需二次封装，比如controller方法无需返回JsonResult
-
-6、请求响应数据格式：
- * 异常响应，400或500这类，建议api调用端直接记录无视响应格式
- * 200响应：
+3、请求响应数据格式：
  ```javascript
 {
     "isSuccess": true/false,
@@ -41,11 +33,6 @@
     "data": {}  // isSuccess=true
 }
 ```
-
-7、如无必要不主动捕获异常
-
-8、~~手动记录日志请用LysLog.BizLogger~~
-
 
 > 参考资料
  * [IdentityServer4官方样例](https://github.com/IdentityServer/IdentityServer4.Samples/tree/release/Quickstarts)
